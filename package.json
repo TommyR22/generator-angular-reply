@@ -1,0 +1,22 @@
+{
+  "name": "generator-angular-reply",
+  "version": "1.0.2",
+  "description": "Project structure Angular2+ with: angular-cli - imagemin - Flask - Cordova",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "yeoman-generator",
+    "angular",
+    "javascript"
+  ],
+  "author": "Tommaso Ruscica",
+  "license": "ISC",
+  "dependencies": {
+    "yeoman-generator": "^4.5.0"
+  }
+}
