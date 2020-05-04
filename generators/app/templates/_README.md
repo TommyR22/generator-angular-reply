@@ -42,6 +42,37 @@ Insert in angular.json:
     ]
 }
 ```
+eg:  
+
+```
+"architect": {
+	"build": {
+	  "builder": "@angular-devkit/build-angular:browser",
+	  "options": {
+		"outputPath": "dist/wedding",
+		"index": "src/index.html",
+		"main": "src/main.ts",
+		"polyfills": "src/polyfills.ts",
+		"tsConfig": "tsconfig.app.json",
+		"aot": true,
+		"assets": [
+		  "src/favicon.ico",
+		  "src/assets",
+		  "src/manifest.json"
+		],
+		"styles": [
+		  "src/styles.scss"
+		],
+		"stylePreprocessorOptions": {
+		  "includePaths": [
+			"src/assets/styles"
+		  ]
+		},
+		"scripts": []
+	  } ....
+```
+
+
 in SCSS files:
 ```
 @import "variables";
@@ -51,6 +82,8 @@ in SCSS files:
 add: `<link rel="manifest" href="manifest.json">`  
 in index.html for web manifest.
 
+add: `src/manifest.json`
+in angular.json below "assets".
 
 ## Optimization images
 ### imagemin
