@@ -25,12 +25,17 @@ export class PopupComponent implements OnInit, OnDestroy {
     @Input() title: string;
     @Input() description: string;
     @Input() hideX?: boolean;
-    @Input() textButton?: string = null;
+    @Input() textButton?: string;
     @Output() clickButton = new EventEmitter();
 
     private subscription: Subscription;
 
     constructor(private popupService: PopupService) {
+		this.subscription = new Subscription();
+		this.isVisible = false;
+		this.title = '';
+		this.description = '';
+		this.textButton = '';
     }
 
     ngOnInit() {

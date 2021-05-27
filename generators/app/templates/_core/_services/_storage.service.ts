@@ -7,7 +7,7 @@ import {Observable, Subject} from 'rxjs';
 
 export class StorageService {
   private dbName = 'storageDB';
-  private storageDB;
+  private storageDB: any;
   private subject = new Subject<any>();
   private subject2 = new Subject<any>();
 
@@ -36,7 +36,7 @@ export class StorageService {
   // -------------------------------
   // INDEXEDDB
   // -------------------------------
-  openIndexedDB(dbName, index?) {
+  openIndexedDB(dbName: string, index?: any) {
     const indexedDB = window.indexedDB;
     const openDB = indexedDB.open(this.dbName, 1);
     openDB.onupgradeneeded = (event: any) => {
@@ -57,7 +57,7 @@ export class StorageService {
     return openDB;
   }
 
-  saveIndexedDB(dbName, key, filedata, index?) {
+  saveIndexedDB(dbName: string, key :string, filedata: any, index?: any) {
     const openDB = this.openIndexedDB(dbName, index);
     openDB.onsuccess = () => {
       if (dbName === 'playersDB') {
@@ -70,14 +70,14 @@ export class StorageService {
     return this.subject2.asObservable();
   }
 
-  findIndexedDB(dbName, filesearch) {
+  findIndexedDB(dbName: string, filesearch: any) {
     return this.loadIndexedDB(dbName, null, filesearch);
   }
 
-  loadIndexedDB(dbName, key: string, filesearch?) {
+  loadIndexedDB(dbName: string, key: string | null, filesearch?: any) {
     const openDB = this.openIndexedDB(dbName);
     openDB.onsuccess = () => {
-      let getData;
+      let getData: any;
       if (key) {
         getData = openDB.result.transaction(dbName, 'readwrite').objectStore(dbName).get(key);
       } else {
@@ -95,7 +95,7 @@ export class StorageService {
     return true;
   }
 
-  getAllData(dbName): Observable<any> {
+  getAllData(dbName: string): Observable<any> {
     const openDB = this.openIndexedDB(dbName);
     openDB.onsuccess = () => {
       const getData = openDB.result.transaction(dbName, 'readwrite').objectStore(dbName).getAll();

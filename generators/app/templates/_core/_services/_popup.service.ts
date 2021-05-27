@@ -12,7 +12,7 @@ export class PopupService {
   constructor() {
   }
 
-  show(title, description, hideX, textButton) {
+  show(title: string, description: string, hideX: boolean, textButton: string) {
     this.popupSubject.next(<PopupState> {isVisible: true, title: title, description: description, hideX: hideX, textButton: textButton});
   }
 

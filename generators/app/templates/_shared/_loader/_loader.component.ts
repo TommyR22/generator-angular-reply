@@ -24,7 +24,9 @@ export class LoaderComponent implements OnInit, OnDestroy {
   @Input() isVisible = false;
   private subscription: Subscription;
 
-  constructor(private loaderService: LoaderService) { }
+  constructor(private loaderService: LoaderService) {
+	  this.subscription = new Subscription();
+	}
 
   ngOnInit() {
     this.subscription = this.loaderService.loaderState
