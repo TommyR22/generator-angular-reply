@@ -87,19 +87,19 @@ in SCSS files:
 
 ## Manifest
 add: `<link rel="manifest" href="manifest.json">`  
-in index.html for web manifest.
+in `index.html` for web manifest.
 
 add: `src/manifest.json`
-in angular.json below "assets".
+in `angular.json` below "assets".
 
 ## Optimization images
 ### imagemin
-npm i imagemin  -> plugin compression images
-npm install imagemin-mozjpeg --save-dev -> lossy compression for JPG
-npm install imagemin-pngquant --save-dev    -> lossy compression for PNG
-npm install imagemin-webp --save-dev
+`npm i imagemin`  -> plugin compression images
+`npm install imagemin-mozjpeg --save-dev` -> lossy compression for JPG
+`npm install imagemin-pngquant --save-dev`   -> lossy compression for PNG
+`npm install imagemin-webp --save-dev`
 
-run 'node imagemin_task.js'
+run `node imagemin_task.js`
 
 #### use webp on html
 <picture>
@@ -136,11 +136,11 @@ ng add @angular/pwa --project appname
 ## Cancel Http pending requests
 1) Using `async pipe` in the view.
 2) Using `take(1)`:
-* `data$.pipe(take(1)).subscribe(res=>console.log(res))`
+	* `data$.pipe(take(1)).subscribe(res=>console.log(res))`
 3) Using `takeUntil`:
-* `private ngUnsubscribe = new Subject();`
-* `takeUntil(this.ngUnsubscribe)` at the END of operators (just before .subscribe())
-* `ngOnDestroy() {
+	* `private ngUnsubscribe = new Subject();`
+	* `takeUntil(this.ngUnsubscribe)` at the END of operators (just before .subscribe())
+	* `ngOnDestroy() {
       this.ngUnsubscribe.next();
       this.ngUnsubscribe.complete();
   }`
@@ -168,10 +168,10 @@ cordova platform save
 cordova plugin save
 cordova prepare
 ```
-Run app on physical devices ANDROID: `cordova run android`
-Run app on physical devices IOS: `cordova run ios --device`
-Run app on emulator IOS: `cordova emulate ios --buildFlag='-UseModernBuildSystem=0'`
-Build: `cordova build android --release`
+- Run app on physical devices ANDROID: `cordova run android`
+- Run app on physical devices IOS: `cordova run ios --device`
+- Run app on emulator IOS: `cordova emulate ios --buildFlag='-UseModernBuildSystem=0'`
+- Build: `cordova build android --release`
 
 ## NgRx
 Example data provided inside `state` directory.
@@ -180,8 +180,9 @@ Go to `app.component.ts` to see how to retrieve data from NgRx.
 
 ## WAR task and Grunt task runner
 Add `"war": "grunt --gruntfile GruntFile.js war"` in `package.json`.
-* update `Gruntfile.js` ad needed.
-* run `npm run war`
+1) update `Gruntfile.js` as needed.
+2) change `<%= title %>` in `Gruntfile.js`.
+3) run `npm run war`.
 
 
 

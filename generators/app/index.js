@@ -213,7 +213,7 @@ module.exports = class extends Generator {
 		);
 		this.fs.copy(
 			this.templatePath('_proxy.conf.json'),
-			this.destinationPath(this.answers.appname + '/src/app/proxy.conf.json')
+			this.destinationPath(this.answers.appname + '/proxy.conf.json')
 		);
 		this.log(chalk.bold.green("[Angular Utilities] Files successfully copied!"));
 		
@@ -370,7 +370,7 @@ module.exports = class extends Generator {
 			this.log(chalk.bold.green("[WAR + Grunt] Successfully installed"));
 			this.fs.copy(
 				this.templatePath('_GruntFile.js'),
-				this.destinationPath(this.answers.appname + '/src/app/GruntFile.js'),
+				this.destinationPath(this.answers.appname + '/GruntFile.js'),
 				{ title: this.answers.appname }
 			);
 			this.log(chalk.bold.green("[WAR + Grunt] Files successfully copied! see README for futher info."));
@@ -393,8 +393,11 @@ module.exports = class extends Generator {
 			);
 			this.log(chalk.bold.green("[Imagemin] Files successfully copied! see README for futher info."));
 		 }
-		 
+		
+		this.log("\n"); 
 		this.log(chalk.bold.bgRed("REMEMBER to see README file to setting up proxy and other stuff!")); 
+		this.log(chalk.bold.bgRed("Overwrite the following files with Y command!")); 
+		this.log("\n"); 
 	};
 	
 	
