@@ -6,34 +6,42 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+## Getting started
+### Setting up proxy
+* edit file `proxy.config.json` as you like
+* add these lines to `angular.json`:
+```
+"serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "prova:build:production",
+              "proxyConfig": "./proxy.conf.json"
+            },
+            "development": {
+              "browserTarget": "prova:build:development",
+              "proxyConfig": "./proxy.conf.json"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+```
 
 ## Server mock
 Build with python and Flask microframework.
 run: `python server.py` inside serverMocks to run Flask web server.
+go to: `localhost:5000/helloWorld`
 update `mocks.py` with REST services.
 
 
-## Using global variable scss
+## Using global variable scss and codeStyle
+1) Use BEM methodology for CSS/SCSS: http://getbem.com/introduction/
+2) Use Global variable SCSS:
 Insert in angular.json:
 ```
 "stylePreprocessorOptions": {
@@ -71,7 +79,6 @@ eg:
 		"scripts": []
 	  } ....
 ```
-
 
 in SCSS files:
 ```
@@ -127,12 +134,26 @@ Once the custom font is ready, the system font is swapped out.
 ng add @angular/pwa --project appname
 
 ## Cancel Http pending requests
+1) Using `async pipe` in the view.
+2) Using `take(1)`:
+* `data$.pipe(take(1)).subscribe(res=>console.log(res))`
+3) Using `takeUntil`:
 * `private ngUnsubscribe = new Subject();`
 * `takeUntil(this.ngUnsubscribe)` at the END of operators (just before .subscribe())
 * `ngOnDestroy() {
       this.ngUnsubscribe.next();
       this.ngUnsubscribe.complete();
   }`
+Eg:
+```
+this.configService.getConfig()
+	.takeUntil(this.ngUnsubscribe)
+    .subscribe((data: Config) => this.config = {
+        heroesUrl: data.heroesUrl,
+        textfile:  data.textfile,
+        date: data.date,
+});
+```
 
 ## Cordova
 create directory ```www``` in root project.

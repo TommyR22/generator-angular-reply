@@ -1,7 +1,7 @@
 {
   "name": "generator-angular-reply",
-  "version": "1.0.2",
-  "description": "Project structure Angular2+ with: angular-cli - imagemin - Flask - Cordova",
+  "version": "1.0.4",
+  "description": "Project structure Angular2+ with: angular-cli - imagemin - Flask - Cordova - ngRx. Tested until up Angular 12.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

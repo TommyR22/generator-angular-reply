@@ -1,0 +1,10 @@
+{
+  "/jalopnik": {
+    "target": "https://jalopnik.com/rss",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/jalopnik": ""
+    }
+  }
+}

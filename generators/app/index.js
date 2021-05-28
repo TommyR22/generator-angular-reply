@@ -52,8 +52,14 @@ module.exports = class extends Generator {
 		  },
 		  {
 			type: "confirm",
+			name: "ngRx",
+			message: "Would you like to use NgRx?",
+			default: false
+		  },
+		  {
+			type: "confirm",
 			name: "cordova",
-			message: "Are you using Cordova?",
+			message: "Would you like to use Cordova?",
 			default: false
 		  },
 		  {
@@ -194,6 +200,10 @@ module.exports = class extends Generator {
 			this.templatePath('_app.module.ts'),
 			this.destinationPath(this.answers.appname + '/src/app/app.module.ts')
 		);
+		this.fs.copy(
+			this.templatePath('_proxy.conf.json'),
+			this.destinationPath(this.answers.appname + '/src/app/proxy.conf.json')
+		);
 		
 		
 		  
@@ -281,6 +291,46 @@ module.exports = class extends Generator {
 			this.spawnCommandSync('npm', ['install', '-g', 'cordova']);
 		 }
 		 
+		 // Copy NgRx
+		 if (this.answers.ngRx) {
+			this.log("Setting up " + chalk.bold.green("NgRx") + " ...");
+			this.spawnCommandSync('npm', ['install', '--save', '@ngrx/store'], {cwd: this.answers.appname + "/"});
+			this.spawnCommandSync('npm', ['install', '--save', '@ngrx/effects'], {cwd: this.answers.appname + "/"});
+			this.spawnCommandSync('npm', ['install', '--save', '@ngrx/store-devtools'], {cwd: this.answers.appname + "/"});
+			this.fs.copy(
+				this.templatePath('_state/_app.reducers.ts'),
+				this.destinationPath(this.answers.appname + '/src/app/state/app.reducers.ts')
+			);
+			this.fs.copy(
+				this.templatePath('_state/_app.state.ts'),
+				this.destinationPath(this.answers.appname + '/src/app/state/app.state.ts')
+			);
+			this.fs.copy(
+				this.templatePath('_state/_user.actions.ts'),
+				this.destinationPath(this.answers.appname + '/src/app/state/user.actions.ts')
+			);
+			this.fs.copy(
+				this.templatePath('_state/_user.effects.ts'),
+				this.destinationPath(this.answers.appname + '/src/app/state/user.effects.ts')
+			);
+			this.fs.copy(
+				this.templatePath('_state/_user.reducer.ts'),
+				this.destinationPath(this.answers.appname + '/src/app/state/user.reducer.ts')
+			);
+			this.fs.copy(
+				this.templatePath('_state/_user.selectors.ts'),
+				this.destinationPath(this.answers.appname + '/src/app/state/user.selectors.ts')
+			);
+				this.fs.copy(
+				this.templatePath('_app.component.ngrx.ts'),
+				this.destinationPath(this.answers.appname + '/src/app/app.component.ts')
+			);
+			this.fs.copy(
+				this.templatePath('_app.module.ngrx.ts'),
+				this.destinationPath(this.answers.appname + '/src/app/app.module.ts')
+			);
+		 }
+		 
 		 
 		 // Copy for imagemin
 		 if (this.answers.imagemin) {
@@ -294,7 +344,8 @@ module.exports = class extends Generator {
 			  this.destinationPath(this.answers.appname + '/imagemin_task.js')
 			);
 		 }
-		  
+		 
+		this.log(chalk.bold.red("REMEMBER to see README file to setting up proxy and other stuff!")); 
 		
 	};
 	

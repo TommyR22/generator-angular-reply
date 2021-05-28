@@ -16,7 +16,7 @@ export class BackendService {
    * getJalopnikNews
    */
   getJalopnikNews(): Observable<any> {
-    return this.http.get('https://jalopnik.com/rss', {responseType: 'text'})
+    return this.http.get('http://localhost:4200/jalopnik', {responseType: 'text'})
       .pipe(
         tap( // Log the result or error
           (/* data */) => console.log('fetched getJalopnikNews')
