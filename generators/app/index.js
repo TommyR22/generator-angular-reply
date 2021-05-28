@@ -82,6 +82,7 @@ module.exports = class extends Generator {
 		  },
 		]);
 		
+		this.log("\n");
 		this.log(chalk.bold.bgBlueBright(" __________________________________________________________"));
 		this.log("\n");
 		this.log("        :::::::::  :::::::::: :::::::::  :::     :::   ::: ");
@@ -100,13 +101,16 @@ module.exports = class extends Generator {
 	
 	references() {
 		this.log(chalk.bold.bgGreen('References'));
-		this.log(chalk.bold.bgRed('README: ') + chalk.bold.green('https://github.com/TommyR22/generator-angular-reply/blob/master/generators/app/templates/_README.md'));
+		this.log(chalk.bold.bgRed('README') + chalk.bold.green(': https://github.com/TommyR22/generator-angular-reply/blob/master/generators/app/templates/_README.md'));
+		this.log("\n");
 		// process.exit(0);
 	}
 	
 	
 	writing() {
-		this.log("Updating/installing " + chalk.bold.blue("@angular/cli") + " ...");
+		this.log(chalk.bold.blue("------------------------"));
+		this.log(chalk.bold.blue("[Angular CLI] Setting up"));
+		this.log(chalk.bold.blue("------------------------"));
 		this.spawnCommandSync('npm', ['install', '-g', '@angular/cli']);
 		const ngOptions = ['new', this.answers.appname];
 
@@ -120,7 +124,7 @@ module.exports = class extends Generator {
 			ngOptions.push('--skipTests=true');
 		}
 		ngOptions.push('--style=' + this.answers.stylePreprocessor);
-		this.log("Creating app: " + chalk.bold.green(this.answers.appname) + " ...");
+		this.log(chalk.bold.green("[Angular CLI] Creating app: ") + chalk.bold.blue(this.answers.appname));
 		this.spawnCommandSync('ng', ngOptions);
 		
  		// Copy Angular file
@@ -211,11 +215,17 @@ module.exports = class extends Generator {
 			this.templatePath('_proxy.conf.json'),
 			this.destinationPath(this.answers.appname + '/src/app/proxy.conf.json')
 		);
+		this.log(chalk.bold.green("[Angular Utilities] Files successfully copied!"));
 		
-		
+		//Copy README.md
+		this.fs.copyTpl(
+			this.templatePath('_README.md'),
+			this.destinationPath(this.answers.appname + '/README.md'),
+			{ title: this.answers.appname }
+		);
 		  
 		 // Copy for mocks Flask
-		 if (this.answers.mocks) {
+		if (this.answers.mocks) {
 			this.log(chalk.bold.blue("------------------"));
 		    this.log(chalk.bold.blue("[Flask] Setting up"));
 		    this.log(chalk.bold.blue("------------------"));
@@ -239,14 +249,7 @@ module.exports = class extends Generator {
 				this.destinationPath(this.answers.appname + '/serverMocks/server.py')
 			);
 			 this.log(chalk.bold.green("[Flask] Files successfully copied!"));
-		 }
-		 
-		 //Copy README.md
-		 this.fs.copyTpl(
-			  this.templatePath('_README.md'),
-			  this.destinationPath(this.answers.appname + '/README.md'),
-			  { title: this.answers.appname }
-		 );
+		}
 		 
 		 // Copy assets
 		 this.log(chalk.bold.blue("-------------------"));
@@ -297,6 +300,7 @@ module.exports = class extends Generator {
 			  this.destinationPath(this.answers.appname + '/src/manifest.json'),
 			  {title: this.answers.appname, short_title: this.answers.appname}
 		 );		 
+		this.log(chalk.bold.green("[Assets] Files successfully copied!"));
 		 
 		 // Copy Cordova
 		 if (this.answers.cordova) {
