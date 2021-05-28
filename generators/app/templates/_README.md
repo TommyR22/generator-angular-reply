@@ -173,5 +173,15 @@ Run app on physical devices IOS: `cordova run ios --device`
 Run app on emulator IOS: `cordova emulate ios --buildFlag='-UseModernBuildSystem=0'`
 Build: `cordova build android --release`
 
+## NgRx
+Example data provided inside `state` directory.
+By default there is a `user` field.
+Go to `app.component.ts` to see how to retrieve data from NgRx.
+
+## WAR task and Grunt task runner
+Add `"war": "grunt --gruntfile GruntFile.js war"` in `package.json`.
+* update `Gruntfile.js` ad needed.
+* run `npm run war`
+
 
 

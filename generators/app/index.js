@@ -70,13 +70,19 @@ module.exports = class extends Generator {
 		  },
 		  {
 			type: "confirm",
+			name: "warGrunt",
+			message: "Would you like WAR package creation (with Grunt)?",
+			default: false
+		  },
+		  {
+			type: "confirm",
 			name: "mocks",
 			message: "Would you like to create mocks with Flask (python)?",
 			default: false
 		  },
 		]);
 		
-		this.log(" __________________________________________________________");
+		this.log(chalk.bold.bgBlueBright(" __________________________________________________________"));
 		this.log("\n");
 		this.log("        :::::::::  :::::::::: :::::::::  :::     :::   ::: ");
 		this.log("       :+:    :+: :+:        :+:    :+: :+:     :+:   :+:  ");
@@ -88,20 +94,19 @@ module.exports = class extends Generator {
 		this.log("\n");
 		//this.log("| App name:", chalk.green(this.answers.appname));
 		//this.log("| Mocks:", this.answers.mocks);
-		this.log("___________________________________________________________");
+		this.log(chalk.bold.bgBlueBright("___________________________________________________________"));
 		this.log("\n");
 	}
 	
 	references() {
 		this.log(chalk.bold.bgGreen('References'));
-		this.log("Mocks: inside serverMocks directory, run: " + chalk.blue("python server.py"));
-		
+		this.log(chalk.bold.bgRed('README: ') + chalk.bold.green('https://github.com/TommyR22/generator-angular-reply/blob/master/generators/app/templates/_README.md');
 		// process.exit(0);
 	}
 	
 	
 	writing() {
-		this.log("Updating/installing " + chalk.bold.green("@angular/cli") + " ...");
+		this.log("Updating/installing " + chalk.bold.blue("@angular/cli") + " ...");
 		this.spawnCommandSync('npm', ['install', '-g', '@angular/cli']);
 		const ngOptions = ['new', this.answers.appname];
 
@@ -119,7 +124,9 @@ module.exports = class extends Generator {
 		this.spawnCommandSync('ng', ngOptions);
 		
  		// Copy Angular file
-		this.log("Setting up " + chalk.bold.green("angular files") + " ...");
+		this.log(chalk.bold.blue("------------------------------"));
+		this.log(chalk.bold.blue("[Angular Utilities] Setting up"));
+		this.log(chalk.bold.blue("------------------------------"));
 		this.fs.copy(
 			this.templatePath('_core/_core.module.ts'),
 			this.destinationPath(this.answers.appname + '/src/app/core/core.module.ts')
@@ -209,25 +216,29 @@ module.exports = class extends Generator {
 		  
 		 // Copy for mocks Flask
 		 if (this.answers.mocks) {
-			this.log("Setting up " + chalk.bold.green("server mocks") + " ...");
+			this.log(chalk.bold.blue("------------------"));
+		    this.log(chalk.bold.blue("[Flask] Setting up"));
+		    this.log(chalk.bold.blue("------------------"));
 			this.spawnCommandSync('pip', ['install', 'flask']);
 			this.spawnCommandSync('pip', ['install', '-U', 'flask-cors']);
-		  this.fs.copy(
-			this.templatePath('_mocks/_assets/_config.cfg'),
-			this.destinationPath(this.answers.appname + '/serverMocks/assets/config.cfg')
-		  );
-		  this.fs.copy(
-			  this.templatePath('_mocks/_utilsModule/__init__.py'),
-			  this.destinationPath(this.answers.appname + '/serverMocks/utilsModule/__init__.py')
-		  );
-		  this.fs.copy(
-			  this.templatePath('_mocks/_utilsModule/_mocks.py'),
-			  this.destinationPath(this.answers.appname + '/serverMocks/utilsModule/mocks.py')
-		  );
-		  this.fs.copy(
-			  this.templatePath('_mocks/_server.py'),
-			  this.destinationPath(this.answers.appname + '/serverMocks/server.py')
-		  );
+			this.log(chalk.bold.green("[Flask] Successfully installed"));
+			this.fs.copy(
+				this.templatePath('_mocks/_assets/_config.cfg'),
+				this.destinationPath(this.answers.appname + '/serverMocks/assets/config.cfg')
+			);
+			this.fs.copy(
+				this.templatePath('_mocks/_utilsModule/__init__.py'),
+				this.destinationPath(this.answers.appname + '/serverMocks/utilsModule/__init__.py')
+			);
+			this.fs.copy(
+				this.templatePath('_mocks/_utilsModule/_mocks.py'),
+				this.destinationPath(this.answers.appname + '/serverMocks/utilsModule/mocks.py')
+			);
+			this.fs.copy(
+				this.templatePath('_mocks/_server.py'),
+				this.destinationPath(this.answers.appname + '/serverMocks/server.py')
+			);
+			 this.log(chalk.bold.green("[Flask] Files successfully copied!"));
 		 }
 		 
 		 //Copy README.md
@@ -238,7 +249,9 @@ module.exports = class extends Generator {
 		 );
 		 
 		 // Copy assets
-		 this.log("Setting up " + chalk.bold.green("assets") + " ...");
+		 this.log(chalk.bold.blue("-------------------"));
+		 this.log(chalk.bold.blue("[Assets] Setting up"));
+		 this.log(chalk.bold.blue("-------------------"));
 		 this.fs.copy(
 			  this.templatePath('_styles/_variables.scss'),
 			  this.destinationPath(this.answers.appname + '/src/assets/styles/variables.scss')
@@ -287,16 +300,22 @@ module.exports = class extends Generator {
 		 
 		 // Copy Cordova
 		 if (this.answers.cordova) {
-			this.log("Setting up " + chalk.bold.green("Cordova") + " ...");
+			this.log(chalk.bold.blue("--------------------"));
+			this.log(chalk.bold.blue("[Cordova] Installing"));
+			this.log(chalk.bold.blue("--------------------"));
 			this.spawnCommandSync('npm', ['install', '-g', 'cordova']);
+			this.log(chalk.bold.green("[Cordova] Successfully installed globally"));
 		 }
 		 
 		 // Copy NgRx
 		 if (this.answers.ngRx) {
-			this.log("Setting up " + chalk.bold.green("NgRx") + " ...");
+			this.log(chalk.bold.blue("-----------------"));
+			this.log(chalk.bold.blue("[NgRx] Setting up"));
+			this.log(chalk.bold.blue("-----------------"));
 			this.spawnCommandSync('npm', ['install', '--save', '@ngrx/store'], {cwd: this.answers.appname + "/"});
 			this.spawnCommandSync('npm', ['install', '--save', '@ngrx/effects'], {cwd: this.answers.appname + "/"});
 			this.spawnCommandSync('npm', ['install', '--save', '@ngrx/store-devtools'], {cwd: this.answers.appname + "/"});
+			this.log(chalk.bold.green("[NgRx] Successfully installed"));
 			this.fs.copy(
 				this.templatePath('_state/_app.reducers.ts'),
 				this.destinationPath(this.answers.appname + '/src/app/state/app.reducers.ts')
@@ -304,6 +323,10 @@ module.exports = class extends Generator {
 			this.fs.copy(
 				this.templatePath('_state/_app.state.ts'),
 				this.destinationPath(this.answers.appname + '/src/app/state/app.state.ts')
+			);
+			this.fs.copy(
+				this.templatePath('_state/_user.state.ts'),
+				this.destinationPath(this.answers.appname + '/src/app/state/user.state.ts')
 			);
 			this.fs.copy(
 				this.templatePath('_state/_user.actions.ts'),
@@ -329,24 +352,44 @@ module.exports = class extends Generator {
 				this.templatePath('_app.module.ngrx.ts'),
 				this.destinationPath(this.answers.appname + '/src/app/app.module.ts')
 			);
+			this.log(chalk.bold.green("[NgRx] Files successfully copied!"));
+		 }
+		 
+		 // Copy WAR + Grunt
+		 if (this.answers.warGrunt) {
+			this.log(chalk.bold.blue("------------------------"));
+			this.log(chalk.bold.blue("[WAR + Grunt] Setting up"));
+			this.log(chalk.bold.blue("------------------------"));
+			this.spawnCommandSync('npm', ['install', 'grunt', '--save-dev'], {cwd: this.answers.appname + "/"});
+			this.spawnCommandSync('npm', ['install', 'grunt-cli', '--save-dev'], {cwd: this.answers.appname + "/"});
+			this.spawnCommandSync('npm', ['install', 'grunt-war', '--save-dev'], {cwd: this.answers.appname + "/"});
+			this.log(chalk.bold.green("[WAR + Grunt] Successfully installed"));
+			this.fs.copy(
+				this.templatePath('_GruntFile.js'),
+				this.destinationPath(this.answers.appname + '/src/app/GruntFile.js', { title: this.answers.appname })
+			);
+			this.log(chalk.bold.green("[WAR + Grunt] Files successfully copied! see README for futher info."));
 		 }
 		 
 		 
 		 // Copy for imagemin
 		 if (this.answers.imagemin) {
-			this.log("Setting up " + chalk.bold.green("imagemin libraries") + " ...");
+			this.log(chalk.bold.blue("---------------------"));
+			this.log(chalk.bold.blue("[Imagemin] Setting up"));
+			this.log(chalk.bold.blue("---------------------"));
 			this.spawnCommandSync('npm', ['install', 'imagemin'], {cwd: this.answers.appname + "/"});
 			this.spawnCommandSync('npm', ['install', 'imagemin-mozjpeg', '--save-dev'], {cwd: this.answers.appname + "/"});
 			this.spawnCommandSync('npm', ['install', 'imagemin-pngquant', '--save-dev'], {cwd: this.answers.appname + "/"});
 			this.spawnCommandSync('npm', ['install', 'imagemin-webp', '--save-dev'], {cwd: this.answers.appname + "/"});
+			this.log(chalk.bold.green("[Imagemin] Successfully installed"));
 			this.fs.copy(
 			  this.templatePath('_imagemin_task.js'),
 			  this.destinationPath(this.answers.appname + '/imagemin_task.js')
 			);
+			this.log(chalk.bold.green("[Imagemin] Files successfully copied! see README for futher info."));
 		 }
 		 
-		this.log(chalk.bold.red("REMEMBER to see README file to setting up proxy and other stuff!")); 
-		
+		this.log(chalk.bold.bgRed("REMEMBER to see README file to setting up proxy and other stuff!")); 
 	};
 	
 	

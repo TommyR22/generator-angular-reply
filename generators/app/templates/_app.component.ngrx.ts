@@ -8,6 +8,7 @@ import { loadUser } from "./state/user.actions";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  public title = 'Angular';
 
   constructor(private readonly store: Store<{ user: string }>) { // or User object
 
