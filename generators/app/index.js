@@ -100,7 +100,7 @@ module.exports = class extends Generator {
 	
 	references() {
 		this.log(chalk.bold.bgGreen('References'));
-		this.log(chalk.bold.bgRed('README: ') + chalk.bold.green('https://github.com/TommyR22/generator-angular-reply/blob/master/generators/app/templates/_README.md');
+		this.log(chalk.bold.bgRed('README: ') + chalk.bold.green('https://github.com/TommyR22/generator-angular-reply/blob/master/generators/app/templates/_README.md'));
 		// process.exit(0);
 	}
 	
