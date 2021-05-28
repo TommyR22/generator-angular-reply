@@ -370,7 +370,8 @@ module.exports = class extends Generator {
 			this.log(chalk.bold.green("[WAR + Grunt] Successfully installed"));
 			this.fs.copy(
 				this.templatePath('_GruntFile.js'),
-				this.destinationPath(this.answers.appname + '/src/app/GruntFile.js', { title: this.answers.appname })
+				this.destinationPath(this.answers.appname + '/src/app/GruntFile.js'),
+				{ title: this.answers.appname }
 			);
 			this.log(chalk.bold.green("[WAR + Grunt] Files successfully copied! see README for futher info."));
 		 }
