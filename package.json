@@ -1,6 +1,6 @@
 {
   "name": "generator-angular-reply",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Project structure Angular2+ (tested with v.12). Optionals: imagemin(images compression), Flask(server mocks), Cordova(mobile), ngRx(state management) and much more!",
   "main": "index.js",
   "scripts": {
