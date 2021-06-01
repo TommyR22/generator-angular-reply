@@ -10,9 +10,11 @@ Optionals:
 * Cordova (mobile app)
 * Flask (server mocks)
 * NgRx (state management)
+* Ngx-translate
 * proxy setting
 * PWA
 * WAR package + Grunt task runner
+* Compodoc (documentation tool)
 
 `yo angular-reply`
 

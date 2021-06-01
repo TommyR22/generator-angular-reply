@@ -2,6 +2,8 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) and Yeoman generator (https://github.com/TommyR22/generator-angular-reply)
 
+[Angular cheatsheet] (https://angular.io/guide/cheatsheet).
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
@@ -84,6 +86,44 @@ in SCSS files:
 ```
 @import "variables";
 ```
+
+## Ngx-Translate
+[github page] (https://github.com/ngx-translate/core)
+### usage
+* Import the `TranslateModule`:
+```
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            }
+        })
+    ],
+    bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+#### SharedModule
+If you use a SharedModule that you import in multiple other feature modules, you can export the TranslateModule to make sure you don't have to import it in every module.
+```
+@NgModule({
+    exports: [
+        CommonModule,
+        TranslateModule
+    ]
+})
+export class SharedModule { }
+```
+
 
 ## Manifest
 add: `<link rel="manifest" href="manifest.json">`  
@@ -184,5 +224,14 @@ Add `"war": "grunt --gruntfile GruntFile.js war"` in `package.json`.
 2) change `<%= title %>` in `Gruntfile.js`.
 3) run `npm run war`.
 
-
+## Compodoc (documentation tool)
+* update config file on the root of project: `tsconfig.doc.json`
+* define a script task in package.json:
+```
+"scripts": {
+  "compodoc": "npx compodoc -p tsconfig.doc.json"
+}
+```
+and run `npm run compodoc`.
+Serve generated documentation with compodoc: `compodoc -s`
 

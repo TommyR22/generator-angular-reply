@@ -52,6 +52,12 @@ module.exports = class extends Generator {
 		  },
 		  {
 			type: "confirm",
+			name: "ngxTranslate",
+			message: "Would you like to use Ngx-translate(i18n)?",
+			default: false
+		  },
+		  {
+			type: "confirm",
 			name: "ngRx",
 			message: "Would you like to use NgRx?",
 			default: false
@@ -77,7 +83,13 @@ module.exports = class extends Generator {
 		  {
 			type: "confirm",
 			name: "mocks",
-			message: "Would you like to create mocks with Flask (python)?",
+			message: "Would you like to add mocks with Flask (python)?",
+			default: false
+		  },
+		  {
+			type: "confirm",
+			name: "compodoc",
+			message: "Would you like to add Compodoc(documentation tool)?",
 			default: false
 		  },
 		]);
@@ -302,6 +314,20 @@ module.exports = class extends Generator {
 		 );		 
 		this.log(chalk.bold.green("[Assets] Files successfully copied!"));
 		 
+		 // Copy Ngx-translate
+		 if (this.answers.ngxTranslate) {
+			this.log(chalk.bold.blue("--------------------"));
+			this.log(chalk.bold.blue("[ngx-translate] Installing"));
+			this.log(chalk.bold.blue("--------------------"));
+			this.spawnCommandSync('npm', ['install', '-save', '@ngx-translate/core']);
+			this.log(chalk.bold.green("[ngx-translate] Successfully installed globally"));
+			this.fs.copy(
+				this.templatePath('_assets/_i18n/_en.json'),
+				this.destinationPath(this.answers.appname + '/src/assets/i18n/en.json')
+			);
+			this.log(chalk.bold.green("[ngx-translate] Files successfully copied! see README file for futher info and setup."));
+		 }
+		 
 		 // Copy Cordova
 		 if (this.answers.cordova) {
 			this.log(chalk.bold.blue("--------------------"));
@@ -393,6 +419,21 @@ module.exports = class extends Generator {
 			);
 			this.log(chalk.bold.green("[Imagemin] Files successfully copied! see README for futher info."));
 		 }
+		 
+		
+		// Compodoc
+		if (this.answers.compodoc) {
+			this.log(chalk.bold.blue("------------------------"));
+			this.log(chalk.bold.blue("[Compodoc] Setting up"));
+			this.log(chalk.bold.blue("------------------------"));
+			this.spawnCommandSync('npm', ['install', '@compodoc/compodoc', '--save-dev'], {cwd: this.answers.appname + "/"});
+			this.log(chalk.bold.green("[Compodoc] Successfully installed"));
+			this.fs.copy(
+				this.templatePath('_tsconfig.doc.json'),
+				this.destinationPath(this.answers.appname + '/tsconfig.doc.json')
+			);
+			this.log(chalk.bold.green("[Compodoc] Files successfully copied! see README for futher info."));
+		}
 		
 		this.log("\n"); 
 		this.log(chalk.bold.bgRed("REMEMBER to see README file to setting up proxy and other stuff!")); 
