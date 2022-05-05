@@ -225,7 +225,7 @@ module.exports = class extends Generator {
 		);
 		this.fs.copy(
 			this.templatePath('_shared/_directives/_drag-drop-upload.directive.ts'),
-			this.destinationPath(this.answers.appname + '/src/app/directives/drag-drop-upload.directive.ts')
+			this.destinationPath(this.answers.appname + '/src/app/shared/directives/drag-drop-upload.directive.ts')
 		);
 		this.fs.copy(
 			this.templatePath('_app.module.ts'),
