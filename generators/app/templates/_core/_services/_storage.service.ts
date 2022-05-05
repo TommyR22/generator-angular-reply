@@ -19,8 +19,7 @@ export class StorageService {
       console.log('Your browser support a stable version of IndexedDB.');
       // this.openIndexedDB();
 
-      // TODO DELETE
-      const index = ['data.vehicle.company', 'data.vehicle.name'];
+      // const index = ['data.vehicle.company', 'data.vehicle.name'];
       // this.saveIndexedDB('garageDB', 'ER299ED', {vehicle: {brand: 'audi', model: 'a3', vin: 'abcd12345tredf3434', insurance: {name: 'allianz', expireDate: 123456}, tax: {expireDate: 11234}}}, index);
       // this.saveIndexedDB('garageDB', '67890', {vehicle: {brand: 'porsche', model: '911', vin: 'abcd12345tredf3434', insurance: {name: 'genertel', expireDate: 123456}}}, index);
       // this.saveIndexedDB('garageDB', '12342', {vehicle: {brand: 'fiat', model: '500', vin: 'abcd12345tredf3434', insurance: {name: 'genertel', expireDate: 123456}}});
@@ -28,8 +27,6 @@ export class StorageService {
       // this.loadIndexedDB('garageDB', 'ER299ED');
 
       //this.saveIndexedDB('profileDB', 'Tommaso Ruscica', {drivingLicense: {number: 'AE12345434', expireDate: 12123223}, settings: {notifications: true}});
-
-
     }
   }
 
@@ -66,7 +63,7 @@ export class StorageService {
         openDB.result.transaction(dbName, 'readwrite').objectStore(dbName).put({date: key, data: filedata});
       }
     };
-    this.subject2.next();
+    this.subject2.next('ok');
     return this.subject2.asObservable();
   }
 
@@ -107,7 +104,7 @@ export class StorageService {
         openDB.result.close();
       };
     };
-    this.subject.next();
+    this.subject.next('ok');
     return this.subject.asObservable();
   }
 

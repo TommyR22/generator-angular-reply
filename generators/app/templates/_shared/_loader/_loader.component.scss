@@ -1,66 +1,53 @@
-.loader {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.overlay {
+  display: flex;           /* establish flex container */
+  flex-direction: column;  /* make main axis vertical */
+  //justify-content: center; /* center items vertically, in this case */
+  //align-items: center;     /* center items horizontally, in this case */
 }
 
-.car {
-  &__body {
-    animation: shake 0.2s ease-in-out infinite alternate;
-  }
-
-  &__line {
-    transform-origin: center right;
-    stroke-dasharray: 22;
-    animation: line 0.8s ease-in-out infinite;
-    animation-fill-mode: both;
-
-    &--top {
-      animation-delay: 0s;
-    }
-
-    &--middle {
-      animation-delay: 0.2s;
-    }
-
-    &--bottom {
-      animation-delay: 0.4s;
-    }
-  }
+/*Let's make it appear when the page loads*/
+.overlay:target:before {
+  display: none;
+}
+.overlay:before {
+  content:"";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  z-index: 1000;
+}
+.overlay .popup {
+  background: #fff;
+  border-radius: 5px;
+  width: 50%;
+  position: fixed;
+  top: 15%;
+  left: 25%;
+  z-index: 1001;
+  -webkit-transition: all 0.6s ease-in-out;
+  -moz-transition: all 0.6s ease-in-out;
+  transition: all 0.6s ease-in-out;
 }
 
-@keyframes shake {
-  0% {
-    transform: translateY(-1%);
-  }
-  100% {
-    transform: translateY(3%);
-  }
+.loader{
+  height: 100px;
+  width: 20%;
+  text-align: center;
+  padding: 1em;
+  margin: 0 auto 1em;
+  display: inline-block;
+  vertical-align: top;
+  z-index: 1002;
 }
 
-@keyframes line {
-  0% {
-    stroke-dashoffset: 22;
-  }
-
-  25% {
-    stroke-dashoffset: 22;
-  }
-
-  50% {
-    stroke-dashoffset: 0;
-  }
-
-  51% {
-    stroke-dashoffset: 0;
-  }
-
-  80% {
-    stroke-dashoffset: -22;
-  }
-
-  100% {
-    stroke-dashoffset: -22;
-  }
+/*
+  Set the color of the icon
+*/
+svg path,
+svg rect{
+  fill: red;
 }

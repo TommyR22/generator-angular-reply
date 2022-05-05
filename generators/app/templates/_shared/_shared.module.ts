@@ -5,6 +5,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoaderComponent} from './loader/loader.component';
 import {PopupComponent} from './popup/popup.component';
 import {AppRoutingModule} from '../app-routing.module';
+import {DragDropUploadDirective} from "./directives/drag-drop-upload.directive";
+
 
 @NgModule({
   imports: [
@@ -16,12 +18,14 @@ import {AppRoutingModule} from '../app-routing.module';
   ],
   declarations: [
     LoaderComponent,
-    PopupComponent
+    PopupComponent,
+	DragDropUploadDirective
   ],
   providers: [],
   exports: [
     LoaderComponent,
-    PopupComponent
+    PopupComponent,
+	DragDropUploadDirective
   ]
 })
 export class SharedModule {

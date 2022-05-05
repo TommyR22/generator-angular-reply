@@ -180,6 +180,10 @@ module.exports = class extends Generator {
 			this.destinationPath(this.answers.appname + '/src/app/core/services/storage.service.ts')
 		);
 		this.fs.copy(
+			this.templatePath('_core/_services/_window-ref.service.ts'),
+			this.destinationPath(this.answers.appname + '/src/app/core/services/window-ref.service.ts')
+		);
+		this.fs.copy(
 			this.templatePath('_core/_services/_utility.service.ts'),
 			this.destinationPath(this.answers.appname + '/src/app/core/services/utility.service.ts')
 		);
@@ -218,6 +222,10 @@ module.exports = class extends Generator {
 		this.fs.copy(
 			this.templatePath('_shared/_popup/_popup.ts'),
 			this.destinationPath(this.answers.appname + '/src/app/shared/popup/popup.ts')
+		);
+		this.fs.copy(
+			this.templatePath('_shared/_directives/_drag-drop-upload.directive.ts'),
+			this.destinationPath(this.answers.appname + '/src/app/directives/drag-drop-upload.directive.ts')
 		);
 		this.fs.copy(
 			this.templatePath('_app.module.ts'),
