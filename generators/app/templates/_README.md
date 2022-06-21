@@ -36,7 +36,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Server mock
 Build with python and Flask microframework.
+
 run: `python server.py` inside serverMocks to run Flask web server.
+
 go to: `localhost:5000/helloWorld`
 update `mocks.py` with REST services.
 
@@ -152,8 +154,11 @@ in `angular.json` below "assets".
 ## Optimization images
 ### imagemin
 `npm i imagemin`  -> plugin compression images
+
 `npm install imagemin-mozjpeg --save-dev` -> lossy compression for JPG
+
 `npm install imagemin-pngquant --save-dev`   -> lossy compression for PNG
+
 `npm install imagemin-webp --save-dev`
 
 run `node imagemin_task.js`
@@ -237,14 +242,24 @@ Go to `app.component.ts` to see how to retrieve data from NgRx.
 
 ## Docker
 Prerequisites: install docker on your OS.
+
 `Dockerfiles` has the info about build and deploy on nginx web server.
+
 The web service will be served on port 9090 (the page should be on localhost:9090/index.html).
 If you want change the port, change `default.conf`.
+
 The project contains a test/run script runnable within the docker container generated from the Docker file named scripts/tests.sh - scripts/run.sh
+
 The full directory will be mounted under `/mnt/` folder into the docker image built from your dockerfile.
-1) run on root: `docker build -t project_name`
-2) docker run -v $(pwd):/mnt -p 9090:9090 -w /mnt project_name ./scripts/tests.sh
-3) docker run -v $(pwd):/mnt -p 9090:9090 -w /mnt project_name ./scripts/run.sh
+
+1) change `app-name` inside Dockerfile with the name of app.
+1) run on root: `docker build -t app_name .`
+2) docker run -v $(pwd):/mnt -p 9090:9090 -w /mnt app_name ./scripts/tests.sh
+3) docker run -v $(pwd):/mnt -p 9090:9090 -w /mnt app_name ./scripts/run.sh
+
+On windows use `$(pwd) = %cd%`.
+
+e.g: `docker run -v %cd%:/mnt -p 9090:9090 -w /mnt app_name ./scripts/tests.sh`
 
 ## WAR task and Grunt task runner
 Add `"war": "grunt --gruntfile GruntFile.js war"` in `package.json`.
