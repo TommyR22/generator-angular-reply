@@ -13,6 +13,7 @@ Optionals:
 * Ngx-translate
 * proxy setting
 * PWA
+* Docker
 * WAR package + Grunt task runner
 * Compodoc (documentation tool)
 

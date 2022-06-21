@@ -235,6 +235,17 @@ Example data provided inside `state` directory.
 By default there is a `user` field.
 Go to `app.component.ts` to see how to retrieve data from NgRx.
 
+## Docker
+Prerequisites: install docker on your OS.
+`Dockerfiles` has the info about build and deploy on nginx web server.
+The web service will be served on port 9090 (the page should be on localhost:9090/index.html).
+If you want change the port, change `default.conf`.
+The project contains a test/run script runnable within the docker container generated from the Docker file named scripts/tests.sh - scripts/run.sh
+The full directory will be mounted under `/mnt/` folder into the docker image built from your dockerfile.
+1) run on root: `docker build -t project_name`
+2) docker run -v $(pwd):/mnt -p 9090:9090 -w /mnt project_name ./scripts/tests.sh
+3) docker run -v $(pwd):/mnt -p 9090:9090 -w /mnt project_name ./scripts/run.sh
+
 ## WAR task and Grunt task runner
 Add `"war": "grunt --gruntfile GruntFile.js war"` in `package.json`.
 1) update `Gruntfile.js` as needed.
